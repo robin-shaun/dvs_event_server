@@ -9,7 +9,7 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -O3")
 
 find_package(Boost REQUIRED)
 find_package(Protobuf REQUIRED)
-
+find_package(cppzmq REQUIRED)
 
 #########################
 # make 
@@ -24,4 +24,5 @@ cs_add_executable(event_server
 target_link_libraries(event_server
    ${catkin_LIBRARIES}
    ${Protobuf_LIBRARIES}
+   cppzmq
 )

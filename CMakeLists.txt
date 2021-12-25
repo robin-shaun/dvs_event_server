@@ -6,6 +6,7 @@ find_package(catkin_simple REQUIRED)
 catkin_simple()
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -O3")
+SET(CMAKE_BUILD_TYPE Debug)
 
 find_package(Boost REQUIRED)
 find_package(Protobuf REQUIRED)
@@ -16,8 +17,8 @@ find_package(cppzmq REQUIRED)
 #########################
 
 cs_add_executable(event_server
-  event_server.cpp
-  event_array.pb.cc
+  src/event_server.cpp
+  src/event_array.pb.cc
 )
 
 # link the executable to the necesarry libs

@@ -1,5 +1,0 @@
-<launch>
-  <node name="event_server" pkg="event_server" type="event_server" output="screen">
-    <rosparam param="/event_window_size"> 30000 </rosparam>
-  </node>
-</launch>

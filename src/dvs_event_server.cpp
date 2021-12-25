@@ -51,7 +51,7 @@ void eventCallback(const dvs_msgs::EventArray::ConstPtr &msg, int event_window_s
 
 int main(int argc, char **argv)
 {
-    ros::init(argc, argv, "event_server");
+    ros::init(argc, argv, "dvs_event_server");
     ros::NodeHandle nh_;
     int event_window_size;
     nh_.getParam("event_window_size", event_window_size);

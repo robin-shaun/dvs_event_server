@@ -1,0 +1,5 @@
+<launch>
+  <node name="dvs_event_server" pkg="dvs_event_server" type="dvs_event_server" output="screen">
+    <rosparam param="/event_window_size"> 30000 </rosparam>
+  </node>
+</launch>

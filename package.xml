@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-  <name>event_server</name>
+  <name>dvs_event_server</name>
   <version>0.0.0</version>
-  <description>The event_server package</description>
+  <description>The dvs_event_server package</description>
   <maintainer email="robin_shaun@foxmail.com">Robin Shaun</maintainer>
   <license>MIT</license>
 

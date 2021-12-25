@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(event_server)
+project(dvs_event_server)
 
 find_package(catkin_simple REQUIRED)
 
@@ -16,13 +16,13 @@ find_package(cppzmq REQUIRED)
 # make 
 #########################
 
-cs_add_executable(event_server
-  src/event_server.cpp
+cs_add_executable(dvs_event_server
+  src/dvs_event_server.cpp
   src/event_array.pb.cc
 )
 
 # link the executable to the necesarry libs
-target_link_libraries(event_server
+target_link_libraries(dvs_event_server
    ${catkin_LIBRARIES}
    ${Protobuf_LIBRARIES}
    cppzmq

@@ -52,10 +52,16 @@ void eventCallback(const dvs_msgs::EventArray::ConstPtr &msg, int event_window_s
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "dvs_event_server");
-    ros::NodeHandle nh_;
+    ros::NodeHandle nh_("~");
     int event_window_size;
-    nh_.getParam("event_window_size", event_window_size);
-    ros::Subscriber sub = nh_.subscribe<dvs_msgs::EventArray>("/dvs/events", 100, boost::bind(&eventCallback, _1, event_window_size));
+    nh_.param<int>("event_window_size", event_window_size, 30000);
+    string event_topic_name;
+    nh_.param<string>("event_topic_name", event_topic_name, "dvs/events");
+    string ip_address;
+    nh_.param<string>("ip_address", ip_address, "127.0.0.1");
+    string port;
+    nh_.param<string>("port", port, "10001");
+    ros::Subscriber sub = nh_.subscribe<dvs_msgs::EventArray>(event_topic_name, 100, boost::bind(&eventCallback, _1, event_window_size));
     thread ros_spin([&]() {
         ros::spin();
     });
@@ -64,7 +70,7 @@ int main(int argc, char **argv)
 
     zmq::context_t context (1);
     zmq::socket_t socket (context, ZMQ_REP);
-    socket.bind ("tcp://*:10002");
+    socket.bind ("tcp://" + ip_address + ":" + port);
 
     while(ros::ok())
     {
@@ -105,8 +111,6 @@ int main(int argc, char **argv)
             event_array.Clear();
             ready = false;
         }
-
     }    
-
     return 0;
 }

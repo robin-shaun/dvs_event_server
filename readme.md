@@ -1,7 +1,7 @@
 # DVS Event Server
 
 ## Introduce
-Transport "dvs/events" ROS topic to Python, because Python ROS callback has large delay.
+This package is used to transport "dvs/events" ROS topic to Python, because Python ROS callback has large delay.
 
 ## Dependency
 [rpg_dvs_ros](https://github.com/uzh-rpg/rpg_dvs_ros)

@@ -23,9 +23,9 @@ bool start = false;
 bool ready = false;
 pthread_mutex_t event_vec_lock = PTHREAD_MUTEX_INITIALIZER;
 
-void eventCallback(const dvs_msgs::EventArray::ConstPtr &msg, int event_window_size)
+void eventCallback(const dvs_msgs::EventArray::ConstPtr &msg, int event_window_size, int no_motion_threshold)
 {
-    if (!start)
+    if (!start || msg->events.size() < no_motion_threshold)
         return;
     pthread_mutex_lock(&event_vec_lock);
     for (auto event : msg->events) 
@@ -38,7 +38,7 @@ void eventCallback(const dvs_msgs::EventArray::ConstPtr &msg, int event_window_s
             {
                 ready = true;
             }
-            if (ts.size() > 100 * event_window_size)
+            if (ts.size() > 1000 * event_window_size)
             {
                 ts.pop_front();
                 x.pop_front();
@@ -55,13 +55,15 @@ int main(int argc, char **argv)
     ros::NodeHandle nh_("~");
     int event_window_size;
     nh_.param<int>("event_window_size", event_window_size, 30000);
+    int no_motion_threshold;
+    nh_.param<int>("no_motion_threshold", no_motion_threshold, 3000);
     string event_topic_name;
     nh_.param<string>("event_topic_name", event_topic_name, "dvs/events");
     string ip_address;
     nh_.param<string>("ip_address", ip_address, "127.0.0.1");
     string port;
     nh_.param<string>("port", port, "10001");
-    ros::Subscriber sub = nh_.subscribe<dvs_msgs::EventArray>(event_topic_name, 100, boost::bind(&eventCallback, _1, event_window_size));
+    ros::Subscriber sub = nh_.subscribe<dvs_msgs::EventArray>(event_topic_name, 100, boost::bind(&eventCallback, _1, event_window_size, no_motion_threshold));
     thread ros_spin([&]() {
         ros::spin();
     });

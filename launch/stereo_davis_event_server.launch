@@ -2,12 +2,14 @@
   <node name="davis_left_event_server" pkg="dvs_event_server" type="dvs_event_server" output="screen">
     <param name="/event_topic_name" type="str" value="/davis_left/events"/>
     <param name="/event_window_size" type="int" value="30000" />
+    <param name="no_motion_threshold" type="int" value="3000" />
     <param name="/ip_address" type="str" value="127.0.0.1" />
     <param name="/port" type="str" value="10000" />
   </node>
   <node name="davis_right_event_server" pkg="dvs_event_server" type="dvs_event_server" output="screen">
     <param name="/event_topic_name" type="str" value="/davis_right/events"/>
     <param name="/event_window_size" type="int" value="30000" />
+    <param name="no_motion_threshold" type="int" value="3000" />
     <param name="/ip_address" type="str" value="127.0.0.1" />
     <param name="/port" type="str" value="10001" />
   </node>
